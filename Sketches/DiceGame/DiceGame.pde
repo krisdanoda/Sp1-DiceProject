@@ -77,13 +77,13 @@ class Die {
 class diceCup { 
   int  dieSize, x, y, k, c, maxDice;
   ArrayList<Die> dice; //stores all dice objects in a object array
-  ArrayList<Die> dice1;
+  ArrayList<Die> dice1; //buckets
   ArrayList<Die> dice2;
   ArrayList<Die> dice3;
   ArrayList<Die> dice4;
   ArrayList<Die> dice5;
   ArrayList<Die> dice6;
-  ArrayList<Die> bucket = new ArrayList<Die>();
+
   //Contructor for diceCup Class
   public diceCup() {
     dice = new ArrayList<Die>();
@@ -100,8 +100,6 @@ class diceCup {
   }
   //Shakes cup, is called in mousepress. Gives all the dice in the cup a new value
   void shake() {
-
-
     for (Die die : dice) {
       die.roll();
     }
@@ -113,6 +111,7 @@ class diceCup {
     this.x = x;
     this.y = y;
 
+//buckets
     dice1=new ArrayList<Die>();
     dice2=new ArrayList<Die>();
     dice3=new ArrayList<Die>();
@@ -120,7 +119,7 @@ class diceCup {
     dice5=new ArrayList<Die>();
     dice6=new ArrayList<Die>();
 
-    maxDice= 0;
+    maxDice= 0; //describes the largest number of die in a row.
     for (Die die : dice) {
       if (die.eyes==1) {
         dice1.add(die);
@@ -148,16 +147,10 @@ class diceCup {
           maxDice = dice6.size();
       }
     }
-
   dieSize = (int)(width/(1.5*maxDice+.5));
   if(dieSize > size) dieSize = size;
     x = dieSize;
   y = dieSize;
-
-
-println(dieSize);
-println(maxDice);
-
     if (dice1.size()>0) {
       c=0;
       for (Die die : dice1) {
@@ -217,20 +210,24 @@ println(maxDice);
 //when the a key is pressed
 void keyPressed() {
   if (key=='a') {
+    //adds a die when you press a
     background(bg);
     Die die = new Die(color(random(255), random(255), random(255)), color(random(255), random(255), random(255)));
     Cup.addDie(die);
     Cup.drawText();
     Cup.draw(size, size, size);
   } else if (key == 's') {
+    //Shakes the cup and draws the dice
     background(bg);
     Cup.shake();   
     Cup.draw(size, size, size);
     Cup.drawText();
   } else if (key == 'r') {
+    //Empties the cup
     Cup = new diceCup();
     Cup.draw(size, size, size);
   } else if(key == BACKSPACE){
+    //removes a die
   background(bg);
   Cup.removeDie();
   Cup.drawText();
