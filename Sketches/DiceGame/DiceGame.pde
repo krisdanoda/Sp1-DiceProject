@@ -150,14 +150,16 @@ class diceCup {
   dieSize = (int)(width/(1.5*maxDice+.5));
   if(dieSize > size) dieSize = size;
     x = dieSize;
-  y = dieSize;
+    y = dieSize;
+  
+  //draw all of our dice
     if (dice1.size()>0) {
       c=0;
       for (Die die : dice1) {
         die.draw(x+c*dieSize*3/2, y+dieSize*k*3/2, dieSize, dieSize/5);
-        c++;
+        c++;//varies the placement in the x axis we draw 
       }
-      k++;
+      k++; //Comtrols which row to draw in. if a row is empty dont draw in it
     }
     if (dice2.size()>0) {
       c=0;
@@ -200,7 +202,7 @@ class diceCup {
       k++;
     }
   }
-  void drawText() {
+  void drawText() {// draws the no of dice as text
     fill(0);
     textSize(128);
     text("No. dice: " +dice.size(), 50, height-50);
@@ -216,17 +218,19 @@ void keyPressed() {
     Cup.addDie(die);
     Cup.drawText();
     Cup.draw(size, size, size);
-  } else if (key == 's') {
+  }  if (key == 's') {
     //Shakes the cup and draws the dice
     background(bg);
     Cup.shake();   
     Cup.draw(size, size, size);
     Cup.drawText();
-  } else if (key == 'r') {
+  }  if (key == 'r') {
     //Empties the cup
     Cup = new diceCup();
     Cup.draw(size, size, size);
-  } else if(key == BACKSPACE){
+   background(bg); 
+   Cup.drawText();
+  }  if(key == BACKSPACE){
     //removes a die
   background(bg);
   Cup.removeDie();
